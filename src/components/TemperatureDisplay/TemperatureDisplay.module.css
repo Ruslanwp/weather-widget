@@ -1,0 +1,11 @@
+.temperature {
+  background-color: inherit;
+}
+
+.temperature-font-size-large {
+  font-size: 70px;
+}
+
+.temperature-font-size-small {
+  font-size: 18px;
+}

@@ -1,0 +1,14 @@
+.widgets-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  width: max-content;
+  gap: 12px;
+}
+
+.widget-wrapper {
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
