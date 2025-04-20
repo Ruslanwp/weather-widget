@@ -11,6 +11,7 @@ enum WeatherCondition {
   Fog = 'Fog',
   Mist = 'Mist',
   'Patchy light rain in area with thunder' = 'Patchy light rain in area with thunder',
+  'Moderate or heavy rain with thunder' = 'Moderate or heavy rain with thunder',
   'Patchy rain nearby' = 'Patchy rain nearby',
 }
 
@@ -32,7 +33,10 @@ export const weatherForecastSchema = z.object({
     temp_c: z.number(),
     condition: z
       .object({
-        text: z.nativeEnum(WeatherCondition),
+        text: z.string().transform((val) => {
+          const result = z.nativeEnum(WeatherCondition).safeParse(val);
+          return result.success ? result.data : WeatherCondition['Partly cloudy'];
+        }),
         icon: z.string(),
       })
       .transform((data) => ({
@@ -76,4 +80,5 @@ const backgroundImages: Record<WeatherCondition, `/${string}/${string}.${'png' |
   [WeatherCondition.Mist]: '/images/mist.jpg',
   [WeatherCondition['Patchy light rain in area with thunder']]: '/images/thunderstorm.jpg',
   [WeatherCondition['Patchy rain nearby']]: '/images/thunderstorm.jpg',
+  [WeatherCondition['Moderate or heavy rain with thunder']]: '/images/thunderstorm.jpg',
 };

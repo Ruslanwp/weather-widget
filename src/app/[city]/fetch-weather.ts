@@ -16,6 +16,7 @@ export async function getWeather(city: string): Promise<WeatherForecast> {
     );
 
     if (!res.ok) {
+      console.error('Weather API request failed:', res.statusText);
       throw new Error('Weather API request failed');
     }
 
