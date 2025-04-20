@@ -8,23 +8,24 @@ import { TimeWidget } from '@/components/TimeWidget/TimeWidget';
 import { Metadata } from 'next';
 
 type Props = {
-  params: { city: string };
+  params: Promise<{ city: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const weather = await getWeather(params.city);
+  const { city } = await params;
+  const weather = await getWeather(city);
 
   return {
-    title: `Weather in ${params.city} - ${weather.current.condition.text}`,
-    description: `The current temperature in ${params.city} is ${weather.current.temp_c}°C with ${weather.current.condition.text.toLowerCase()}.`,
+    title: `Weather in ${city} - ${weather.current.condition.text}`,
+    description: `The current temperature in ${city} is ${weather.current.temp_c}°C with ${weather.current.condition.text.toLowerCase()}.`,
     openGraph: {
-      title: `Weather in ${params.city}`,
-      description: `It's currently ${weather.current.temp_c}°C and ${weather.current.condition.text.toLowerCase()} in ${params.city}.`,
+      title: `Weather in ${city}`,
+      description: `It's currently ${weather.current.temp_c}°C and ${weather.current.condition.text.toLowerCase()} in ${city}.`,
     },
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ city: string }> }) {
+export default async function Page({ params }: Props) {
   const { city } = await params;
 
   const data = await getWeather(city);
