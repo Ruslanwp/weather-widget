@@ -6,6 +6,14 @@ import { WeatherDetailsWrapper } from '@/components/WeatherDetailsWrapper/Weathe
 import { WeatherDetail } from '@/components/WeatherDetail/WeatherDetail';
 import { TimeWidget } from '@/components/TimeWidget/TimeWidget';
 import { Metadata } from 'next';
+import Image from 'next/image';
+import { CSSProperties } from 'react';
+
+const locationStyles: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+};
 
 type Props = {
   params: Promise<{ city: string }>;
@@ -47,9 +55,10 @@ export default async function Page({ params }: Props) {
           width: '230px',
         }}
       >
-        <h3>
+        <section style={locationStyles}>
+          <Image src="/icons/Pin.png" alt="location" width={28} height={32} />
           {location.name}, {location.country}
-        </h3>
+        </section>
         <TemperatureDisplay temperature={current.temp_c} textSize="large" />
         <MinMaxTemperatureWidget
           min={forecast.forecastday.mintemp_c}
