@@ -5,7 +5,10 @@ export async function getWeather(city: string): Promise<WeatherForecast> {
   'use server';
 
   try {
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const apiKey =
+      process.env.NODE_ENV === 'production'
+        ? process.env.WEATHER_API_KEY
+        : process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
     const res = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?q=${city}&days=1&key=${apiKey}`,

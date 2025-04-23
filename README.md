@@ -5,7 +5,7 @@
 1. **Create a `.env.local` file** in the root of the project with the following content:
 
    ```ini
-   NEXT_PUBLIC_API_KEY=your_api_key_here
+   NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
    ```
 
 2. **Install dependencies**:
